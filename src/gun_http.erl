@@ -637,7 +637,7 @@ send_request(State=#http_state{socket=Socket, transport=Transport, version=Versi
 		{undefined, body_chunked} when Version =:= 'HTTP/1.0' -> Headers4;
 		{undefined, body_chunked} -> [{<<"transfer-encoding">>, <<"chunked">>}|Headers4];
 		{undefined, _} -> Headers4;
-		_ -> [{<<"content-length">>, integer_to_binary(iolist_size(Body))}|Headers4]
+		_ -> gun_headers:content_length(Method, Headers4, Body)
 	end,
 	{Headers, CookieStore} = gun_cookies:add_cookie_header(
 		scheme(State), Authority, Path, Headers5, CookieStore0),

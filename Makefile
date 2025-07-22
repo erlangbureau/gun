@@ -2,7 +2,7 @@
 
 PROJECT = gun
 PROJECT_DESCRIPTION = HTTP/1.1, HTTP/2 and Websocket client for Erlang/OTP.
-PROJECT_VERSION = 2.2.0
+PROJECT_VERSION = 0.1.0
 
 # Options.
 

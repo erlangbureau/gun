@@ -530,8 +530,7 @@ request(State0=#http3_state{conn=Conn, transport=Transport,
 		http3_machine=HTTP3Machine0}, StreamRef, ReplyTo, Method, Host, Port,
 		Path, Headers0, Body, _InitialFlow0, CookieStore0, EvHandler, EvHandlerState0)
 		when is_reference(StreamRef) ->
-	Headers1 = lists:keystore(<<"content-length">>, 1, Headers0,
-		{<<"content-length">>, integer_to_binary(iolist_size(Body))}),
+	Headers1 = gun_headers:content_length(Method, Headers0, Body),
 	%% @todo InitialFlow = initial_flow(InitialFlow0, Opts),
 	{ok, StreamID} = Transport:start_bidi_stream(Conn),
 	HTTP3Machine1 = cow_http3_machine:init_bidi_stream(StreamID,
